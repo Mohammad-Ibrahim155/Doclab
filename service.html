@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Doclab - Home</title>
+  <meta name="title" content="Doclab - Home">
+  <meta name="description" content="This is a medical HTML template made by Team Us">
+  
+  <link rel="shortcut icon" href="./favicon.svg" type="image/svg+xml">
+  
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;700&family=Rubik:wght@400;500;700&display=swap"
+    rel="stylesheet">
+
+  <style>
+    body {
+      background-color: hsl(186, 100%, 19%); /* Set the background color */
+      color: white; /* Text color */
+      font-family: 'Rubik', sans-serif; /* Font style for body */
+      display: flex; /* Centering content */
+      flex-direction: column; /* Stack elements vertically */
+      justify-content: flex-start; /* Align items to start from top */
+      align-items: center; /* Center horizontally */
+      height: auto; /* Adjust height to fit content */
+      margin: 0; /* Remove default margin */
+    }
+
+    h1 {
+      font-family: 'Oswald', sans-serif; /* Font style for heading */
+      font-size: 3em; /* Large font size for the heading */
+      margin: 0; /* Remove margin to eliminate space from top */
+      padding-top: 20px; /* Optional padding for slight spacing from top */
+    }
+
+    .service {
+      padding: 40px 20px;
+      background-color: rgba(255, 255, 255, 0.1); /* Light background for service section */
+      width: 100%;
+    }
+
+    .service-list {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center; /* Center the service cards */
+    }
+
+    .service-card {
+      background-color: rgba(255, 255, 255, 0.2);
+      border-radius: 8px;
+      padding: 20px;
+      margin: 10px;
+      text-align: center;
+      width: calc(20% - 40px); /* Adjust width based on number of cards per row */
+    }
+
+    .card-icon img {
+      width: 50px;
+      height: auto;
+    }
+
+    .card-title {
+      font-size: 1.5em;
+      margin-top: 10px;
+    }
+
+    .card-text {
+      font-size: 1em;
+    }
+    
+    @media (max-width: 768px) {
+        .service-card {
+            width: calc(45% - 40px); /* Adjust width for smaller screens */
+        }
+    }
+
+    @media (max-width: 480px) {
+        .service-card {
+            width: calc(100% - 40px); /* Full width for mobile devices */
+        }
+    }
+    
+    .section-title {
+        text-align: center; 
+        margin-left: 20px; /* Add left margin to create space from the left edge */
+        margin-right: 20px; /* Optional right margin for symmetry */
+        padding-bottom: 20px; /* Optional padding below the title */
+    }
+    
+  </style>
+</head>
+<body>
+
+<br>
+<header class="header" data-header>
+    <div class="container">
+        <a href="#" class="logo">
+            <img src="./assets/images/logo.svg" width="136" height="46" alt="Doclab home">
+        </a>
+    
+        <div class="overlay" data-nav-toggler data-overlay></div>
+    </div>
+</header>
+<h1>Welcome to Doclab</h1>
+
+<!-- Services Section -->
+<section class="service" aria-label="service">
+    <div class="container">
+        <h2 class="headline-md section-title">Our Services</h2> <!-- Centered Title with Margin -->
+
+        <div class="service-list">
+
+            <div class="service-card">
+                <div class="card-icon">
+                    <img src="./assets/images/icon-1.png" alt="Psychiatry Icon">
+                </div>
+                <h3 class="headline-sm card-title">Psychiatry</h3>
+                <p class="card-text">Finding hope and healing with personalized psychiatric care in the comfort of your home.</p>
+            </div>
+
+            <div class="service-card">
+                <div class="card-icon">
+                    <img src="./assets/images/icon-2.png" alt="Cardiology Icon">
+                </div>
+                <h3 class="headline-sm card-title">Cardiology</h3>
+                <p class="card-text">Compassionate care for your heart health from our experienced cardiologists.</p>
+            </div>
+
+            <div class="service-card">
+                <div class="card-icon">
+                    <img src="./assets/images/icon-3.png" alt="Therapy Icon">
+                </div>
+                <h3 class="headline-sm card-title">Therapy</h3>
+                <p class="card-text">Finding hope and healing with our caring therapists.</p>
+            </div>
+
+            <div class="service-card">
+                <div class="card-icon">
+                    <img src="./assets/images/icon-4.png" alt="Orthopedics Icon">
+                </div>
+                <h3 class="headline-sm card-title">Orthopedics</h3>
+                <p class="card-text">Get back on your feet with our compassionate orthopedic care.</p>
+            </div>
+
+            <!-- New Services -->
+            <div class="service-card">
+                <div class="card-icon">
+                    <img src="./assets/images/icon-5.png" alt="Pediatrics Icon">
+                </div>
+                <h3 class="headline-sm card-title">Pediatrics</h3>
+                <p class="card-text">Specialized healthcare for children from infancy through adolescence.</p>
+            </div>
+
+            <div class="service-card">
+                <div class="card-icon">
+                    <img src="./assets/images/icon-6.png" alt="Dermatology Icon">
+                </div>
+                <h3 class="headline-sm card-title">Dermatology</h3>
+                <p class="card-text">Expert care for all skin conditions and cosmetic concerns.</p>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<!-- Additional Content Goes Here -->
+
+</body>
+
+</html>

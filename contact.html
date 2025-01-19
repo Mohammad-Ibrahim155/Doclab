@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Doclab - Contact</title>
+  <meta name="title" content="Doclab - Contact">
+  <meta name="description" content="Contact us for inquiries and support">
+
+  <link rel="shortcut icon" href="./favicon.svg" type="image/svg+xml">
+  
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;700&family=Rubik:wght@400;500;700&display=swap" rel="stylesheet">
+
+  <style>
+    body {
+      background-color: hsl(186, 100%, 19%); /* Set the background color */
+      color: white; /* Text color */
+      font-family: 'Rubik', sans-serif; /* Font style for body */
+      display: flex; /* Centering content */
+      flex-direction: column; /* Stack elements vertically */
+      justify-content: flex-start; /* Align items to start from top */
+      align-items: center; /* Center horizontally */
+      margin: 0; /* Remove default margin */
+    }
+
+    h1 {
+      font-family: 'Oswald', sans-serif; /* Font style for heading */
+      font-size: 3em; /* Large font size for the heading */
+      margin: 20px 0; /* Margin for spacing */
+    }
+
+    .contact-section {
+      padding: 40px;
+      width: 100%;
+    }
+
+    .contact-card {
+      background-color: rgba(255, 255, 255, 0.2); /* Light background for contact card */
+      border-radius: 8px;
+      padding: 20px;
+      margin-bottom: 20px;
+      text-align: center;
+    }
+
+    .card-title {
+      font-size: 1.5em;
+      margin-top: 10px;
+    }
+
+    .card-text {
+      font-size: 1em;
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    label {
+      margin-top: 10px;
+      font-size: 1em;
+    }
+
+    input, textarea {
+      width: calc(100% - 20px);
+      padding: 10px;
+      margin-top: 5px;
+      border-radius: 4px;
+      border: none;
+    }
+
+    button {
+      background-color: hsl(186, 100%, 30%);
+      color: white;
+      border: none;
+      padding: 10px;
+      border-radius: 4px;
+      cursor: pointer;
+      margin-top: 15px;
+    }
+    
+    button:hover {
+      background-color: hsl(186, 100%, 40%);
+    }
+    
+    .meta-wrapper {
+        display: flex;
+        justify-content: center;
+        margin-bottom: 10px;
+    }
+
+    .card-meta {
+        margin-right: 15px;
+        font-size: 0.9em;
+        color: rgba(255,255,255,0.7);
+    }
+    
+  </style>
+</head>
+<body>
+
+<br>
+<header class="header" data-header>
+    <div class="container">
+        <a href="#" class="logo">
+            <img src="./assets/images/logo.svg" width="136" height="46" alt="Doclab home">
+        </a>
+    
+        <div class="overlay" data-nav-toggler data-overlay></div>
+    </div>
+</header>
+
+<main>
+    <section class="contact-section">
+        <h1>Contact Us</h1>
+
+        <div class="contact-card">
+            <h3 class="card-title">Get in Touch</h3>
+            <p class="card-text">We'd love to hear from you! Please fill out the form below.</p>
+
+            <!-- Contact Form -->
+            <form id="contact-form">
+                <label for="name">Name:</label>
+                <input type="text" id="name" name="name" required placeholder="Your Name">
+
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" required placeholder="Your Email">
+
+                <label for="phone">Phone Number:</label>
+                <input type="tel" id="phone" name="phone" required placeholder="Your Phone Number">
+
+                <label for="message">Message:</label>
+                <textarea id="message" name="message" rows="5" required placeholder="Your Message"></textarea>
+
+                <button type="submit">Send Message</button> <!-- Submit Button -->
+            </form>
+        </div>
+
+        <!-- Contact Information -->
+        <div class='contact-card'>
+            <h3 class='card-title'>Contact Information</h3>
+            <p>Email us at: info@doclab.com</p>
+            <p>Call us at: +91-456-789-350</p>
+            <!-- Add more contact information as needed -->
+        </div>
+
+    </section>
+</main>
+
+<footer style='background-color:hsl(186,100%,15%); padding:20px; text-align:center;'>
+   ©2024 Doclab. All rights reserved.
+</footer>
+
+</body>
+
+</html>
