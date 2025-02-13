@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Doctor Dashboard - Doclab</title>
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;700&family=Rubik:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: hsl(186, 100%, 19%);
+            --secondary-color: hsl(186, 100%, 30%);
+            --accent-color: hsl(186, 100%, 40%);
+            --success-color: #28a745;
+            --danger-color: #dc3545;
+            --warning-color: #ffc107;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: var(--primary-color);
+            color: white;
+            font-family: 'Rubik', sans-serif;
+        }
+
+        .dashboard-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .dashboard-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            background-color: rgba(255, 255, 255, 0.1);
+            padding: 20px;
+            border-radius: 10px;
+        }
+
+        .appointments-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .appointment-card {
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            padding: 20px;
+            transition: transform 0.3s ease;
+        }
+
+        .appointment-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .status-badge {
+            display: inline-block;
+            padding: 5px 10px;
+            border-radius: 15px;
+            font-size: 0.8em;
+            margin-bottom: 10px;
+        }
+
+        .status-pending { background-color: var(--warning-color); color: black; }
+        .status-accepted { background-color: var(--success-color); }
+        .status-rejected { background-color: var(--danger-color); }
+
+        .card-actions {
+            display: flex;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .btn {
+            padding: 8px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: opacity 0.3s ease;
+        }
+
+        .btn:hover {
+            opacity: 0.9;
+        }
+
+        .btn-accept {
+            background-color: var(--success-color);
+            color: white;
+        }
+
+        .btn-reject {
+            background-color: var(--danger-color);
+            color: white;
+        }
+
+        .btn-delete {
+            background-color: #6c757d;
+            color: white;
+        }
+
+        .tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .tab {
+            padding: 10px 20px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border: none;
+            border-radius: 5px;
+            color: white;
+            cursor: pointer;
+        }
+
+        .tab.active {
+            background-color: var(--accent-color);
+        }
+
+        .appointment-info {
+            margin: 10px 0;
+            line-height: 1.6;
+        }
+
+        @media (max-width: 768px) {
+            .appointments-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="dashboard-container">
+        <div class="dashboard-header">
+            <h1>Doctor Dashboard</h1>
+            <button class="btn btn-delete" onclick="logout()">Logout</button>
+        </div>
+
+        <div class="tabs">
+            <button class="tab active" onclick="filterAppointments('all')">All</button>
+            <button class="tab" onclick="filterAppointments('pending')">Pending</button>
+            <button class="tab" onclick="filterAppointments('accepted')">Accepted</button>
+            <button class="tab" onclick="filterAppointments('rejected')">Rejected</button>
+        </div>
+
+        <div class="appointments-grid" id="appointmentsList">
+            <!-- Appointments will be loaded here -->
+        </div>
+    </div>
+
+    <script>
+        // Remove any authentication checks
+        let currentFilter = 'all';
+        let appointments = [];
+
+        async function loadAppointments() {
+            try {
+                const response = await fetch('/api/appointments');
+                appointments = await response.json();
+                displayAppointments();
+            } catch (error) {
+                console.error('Error:', error);
+                alert('Error loading appointments');
+            }
+        }
+
+        function displayAppointments() {
+            const appointmentsList = document.getElementById('appointmentsList');
+            const filteredAppointments = currentFilter === 'all' 
+                ? appointments 
+                : appointments.filter(app => app.status === currentFilter);
+
+            appointmentsList.innerHTML = filteredAppointments.map(appointment => `
+                <div class="appointment-card">
+                    <span class="status-badge status-${appointment.status || 'pending'}">
+                        ${appointment.status || 'pending'}
+                    </span>
+                    <h3>${appointment.patientName}</h3>
+                    <div class="appointment-info">
+                        <p>📅 ${new Date(appointment.date).toLocaleString()}</p>
+                        <p>📧 ${appointment.email}</p>
+                        <p>📞 ${appointment.phone}</p>
+                        <p>🏥 ${appointment.department}</p>
+                        ${appointment.message ? `<p>💬 ${appointment.message}</p>` : ''}
+                    </div>
+                    <div class="card-actions">
+                        ${appointment.status !== 'accepted' ? 
+                            `<button class="btn btn-accept" onclick="updateStatus('${appointment._id}', 'accepted')">Accept</button>` : ''
+                        }
+                        ${appointment.status !== 'rejected' ? 
+                            `<button class="btn btn-reject" onclick="updateStatus('${appointment._id}', 'rejected')">Reject</button>` : ''
+                        }
+                        <button class="btn btn-delete" onclick="deleteAppointment('${appointment._id}')">Delete</button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        async function updateStatus(id, status) {
+            try {
+                const response = await fetch(`/api/appointments/${id}/status`, {
+                    method: 'PUT',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ status })
+                });
+
+                const data = await response.json();
+                if (response.ok) {
+                    alert(data.message);
+                    await loadAppointments();
+                } else {
+                    throw new Error('Failed to update status');
+                }
+            } catch (error) {
+                alert('Error updating appointment status');
+            }
+        }
+
+        async function deleteAppointment(id) {
+            if (!confirm('Are you sure you want to delete this appointment?')) return;
+
+            try {
+                const response = await fetch(`/api/appointments/${id}`, {
+                    method: 'DELETE'
+                });
+
+                if (response.ok) {
+                    await loadAppointments();
+                } else {
+                    throw new Error('Failed to delete appointment');
+                }
+            } catch (error) {
+                alert('Error deleting appointment');
+            }
+        }
+
+        function filterAppointments(filter) {
+            currentFilter = filter;
+            document.querySelectorAll('.tab').forEach(tab => {
+                tab.classList.toggle('active', tab.textContent.toLowerCase() === filter);
+            });
+            displayAppointments();
+        }
+
+        function logout() {
+            window.location.href = '/doctor-login.html';
+        }
+
+        // Load appointments when page loads
+        loadAppointments();
+    </script>
+</body>
+</html>
