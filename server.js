@@ -4,6 +4,7 @@ const fs = require('fs');
 const connectDB = require('./config/db');
 const Appointment = require('./models/Appointment');
 const { sendAppointmentConfirmation } = require('./config/email');
+const Doctor = require('./models/Doctor');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -119,6 +120,30 @@ app.delete('/api/appointments/:id', async (req, res) => {
         res.json({ message: 'Appointment deleted successfully' });
     } catch (error) {
         res.status(500).json({ message: error.message });
+    }
+});
+
+// Doctor Registration Route
+app.post('/api/doctors/register', async (req, res) => {
+    try {
+        // Check if doctor with email already exists
+        const existingDoctor = await Doctor.findOne({ email: req.body.email });
+        if (existingDoctor) {
+            return res.status(400).json({ message: 'Doctor with this email already exists' });
+        }
+
+        // Create new doctor
+        const doctor = new Doctor({
+            name: req.body.name,
+            email: req.body.email,
+            password: req.body.qualification, // In a real app, you'd hash this
+            department: req.body.phone // Using phone as department for now
+        });
+
+        await doctor.save();
+        res.status(201).json({ message: 'Doctor registered successfully' });
+    } catch (error) {
+        res.status(400).json({ message: error.message });
     }
 });
 

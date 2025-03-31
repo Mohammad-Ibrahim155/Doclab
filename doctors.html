@@ -127,6 +127,40 @@
     <button type="submit">Submit</button>
   </form>
 
+  <script>
+    document.getElementById('doctor-registration').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      
+      const formData = {
+        name: document.getElementById('name').value,
+        phone: document.getElementById('phone').value,
+        email: document.getElementById('email').value,
+        qualification: document.getElementById('qualification').value,
+      };
+
+      try {
+        const response = await fetch('/api/doctors/register', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(formData)
+        });
+
+        const data = await response.json();
+        
+        if (response.ok) {
+          alert('Registration successful!');
+          window.location.href = '/doctor-login.html';
+        } else {
+          alert(data.message || 'Registration failed');
+        }
+      } catch (error) {
+        alert('Error registering doctor');
+        console.error('Error:', error);
+      }
+    });
+  </script>
 </body>
 
 </html>
